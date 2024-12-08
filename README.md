@@ -77,7 +77,6 @@ A Model Context Protocol (MCP) server implementation that provides integration b
 ## Prerequisites
 
 - Python 3.10 or higher
-- `uv` package manager (0.4.18 or higher)
 - Git
 - ClickUp API Token
 
@@ -93,14 +92,20 @@ cd clickup-mcp
 
 2. Set up the Python environment:
 ```bash
-uv venv
+python -m venv .venv
 source .venv/bin/activate  # On MacOS
 ```
 
 3. Install dependencies:
 ```bash
-uv pip install -r requirements.txt
+pip install -r requirements.txt
 ```
+
+4. Install 
+```bash
+pip install -e .
+```
+
 
 ## Configuration
 
@@ -122,8 +127,24 @@ Create a configuration file for Claude Desktop:
 ```
 
 Place this file at:
-- macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- macOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+
+
+##Example prompts
+
+Prompts similar to those will trigger the tool usage:
+
+> List me tasks from the Clickup list `[list id]`, do it in return_mode important
+
+Having the tasks fetched you can reference them by name going forward in the same chat.
+
+> Get the page id from this Clickup url structure 
+https://app.clickup.com/[space]/v/dc/[doc id]/[page id] and get the content from it using get-page tool
+
+Will return the content of a Clickup document
+
+Once the initial data is fetched (tasks from a list, links to tasks from a document) a fully natural conversation about the tasks can take place (add a comment to the task '[task name]', update the previous task, move to the task and review the action points, etc.).
 
 
 ## Development
@@ -137,7 +158,9 @@ python -m unittest discover -s tests
 python -m unittest tests/test_task_transformer.py
 ```
 
-## Debugging MCP Servers
+## Debugging
+
+### Debugging MCP servers
 
 Since MCP servers run over `stdio`, debugging can be challenging. For the best debugging experience, we strongly recommend using the [MCP Inspector](https://github.com/modelcontextprotocol/inspector).
 
@@ -151,6 +174,10 @@ Upon launching, the Inspector will display a URL that you can access in your bro
 
 Set the environment variable (`CLICKUP_API_TOKEN`) with the same token value as you added into the `claude_desktop_config.json`. The variable name can be found in the left column of the MCP Inspector.
 
+
+### Claude Desktop MCP errors logs
+
+Check the files inside when the Claude Desktop app shows MCP connection related errors after start `/Library/Logs/Claude`
 
 ## Current limitations
 
