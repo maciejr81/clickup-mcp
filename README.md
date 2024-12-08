@@ -223,7 +223,7 @@ Set the environment variable (`CLICKUP_API_TOKEN`) with the same token value as 
 
 ### Claude Desktop MCP errors logs
 
-Check the files inside when the Claude Desktop app shows MCP connection related errors after start `/Library/Logs/Claude`
+Check the files inside when the Claude Desktop app shows MCP connection related errors after start `~/Library/Logs/Claude`
 
 ## Current limitations
 
@@ -235,4 +235,5 @@ MIT License - see LICENSE file for details.
 
 ## Acknowledgments
 
-Inspired by https://github.com/noahvanhart/mcp-server-clickup 
+Python code written mostly by Claude.ai
+This project inspired by and started from https://github.com/noahvanhart/mcp-server-clickup - rewritten for additional functionality and code clarity
