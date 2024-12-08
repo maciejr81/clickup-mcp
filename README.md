@@ -4,24 +4,69 @@ A Model Context Protocol (MCP) server implementation that provides integration b
 
 ## Features
 
-# ClickUp Task Management Methods
+### Return Modes
+The server implements a flexible data return system with three modes that control the level of detail in responses:
 
-## Comments
+- **Minimal Mode** - Returns only essential fields (e.g., ID, name, basic status)
+- **Important Mode** - Returns key business fields while excluding technical details
+- **Full Mode** - Returns complete raw response from ClickUp API
+
+#### Nested Field Handling
+The server supports nested field access using dot notation:
+- `status.status` - Extracts the status string from status object
+- `assignees.email` - Extracts emails from assignee objects
+- `tags.name` - Extracts tag names from tag objects
+
+Example transformations:
+```json
+// Original ClickUp response
+{
+  "id": "task123",
+  "name": "Example Task",
+  "status": {
+    "status": "in progress",
+    "color": "#4169E1"
+  },
+  "assignees": [
+    {"id": 123, "email": "user@example.com"}
+  ]
+}
+
+// Minimal mode
+{
+  "id": "task123",
+  "name": "Example Task",
+  "status_status": "in progress",
+  "assignees_email": ["user@example.com"]
+}
+
+### Data processing features
+
+* **Automatic Array Handling** - Processes both single items and arrays of items
+* **Recursive Processing** - Properly handles nested structures like subtasks
+* **ID Preservation** - Maintains critical identifiers across all return modes
+* **Type Safety** - Implements type checking and validation
+* **Null Safety** - Gracefully handles missing or null fields
+
+
+## Available tools
+
+### Comments
 - **get-comments** - Get comments on a task
 - **create-task-comment** - Create a comment on a task
 
-## Custom Fields
+### Custom Fields
 - **get-accessible-custom-fields** - Get custom fields accessible in a list
 - **set-custom-field-value** - Set custom field value
 - **remove-custom-field-value** - Remove custom field value
 
-## Dependencies
+### Dependencies
 - **add-task-dependency** - Add a dependency between tasks
 - **remove-task-dependency** - Remove a dependency from a task
 - **add-task-link** - Add a link between tasks
 - **delete-task-link** - Remove a link between tasks
 
-## Docs
+### Docs
 - **search-docs** - Search and filter docs in workspace
 - **create-doc** - Create a new doc
 - **get-doc** - Get doc details
@@ -30,24 +75,24 @@ A Model Context Protocol (MCP) server implementation that provides integration b
 - **get-page** - Get page details
 - **edit-page** - Edit/update a page
 
-## Folders
+### Folders
 - **update-folder** - Update a folder
 - **get-folders** - Get all folders in a space
 - **get-folder** - Get a specific folder
 
-## Goals
+### Goals
 - **create-goal** - Create a new goal in a team
 - **get-goals** - Get goals in a team
 
-## Lists
+### Lists
 - **get-lists** - Get all lists in a space
 - **create-folderless-list** - Create a list directly in a space without a folder
 
-## Spaces
+### Spaces
 - **get-spaces** - Get all spaces in a team
 - **create-space** - Create a new space in a team
 
-## Tasks
+### Tasks
 - **create-task** - Create a new task in a list
 - **update-task** - Update a task
 - **get-task-watchers** - Get watchers of a task
@@ -56,19 +101,19 @@ A Model Context Protocol (MCP) server implementation that provides integration b
 - **get-tasks** - Get tasks from a list
 - **create-task-attachment** - Create a task attachment
 
-## Teams
+### Teams
 - **get-teams** - Get all accessible teams/workspaces
 - **create-team-group** - Create a team (user group)
 
-## Time Tracking
+### Time Tracking
 - **get-time-entries** - Get time entries within a date range
 - **start-time-entry** - Start time tracking for a task
 
-## Views
+### Views
 - **get-view** - Get view details
 - **get-view-tasks** - Get tasks from a view
 
-## Webhooks
+### Webhooks
 - **get-webhooks** - Get webhooks
 - **create-webhook** - Create a webhook
 
@@ -131,7 +176,7 @@ Place this file at:
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 
 
-##Example prompts
+## Example prompts
 
 Prompts similar to those will trigger the tool usage:
 
