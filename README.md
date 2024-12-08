@@ -39,6 +39,7 @@ Example transformations:
   "status_status": "in progress",
   "assignees_email": ["user@example.com"]
 }
+```
 
 ### Data processing features
 
