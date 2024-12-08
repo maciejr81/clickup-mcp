@@ -236,4 +236,5 @@ MIT License - see LICENSE file for details.
 ## Acknowledgments
 
 Python code written mostly by Claude.ai
-This project inspired by and started from https://github.com/noahvanhart/mcp-server-clickup - rewritten for additional functionality and code clarity
+
+This project is inspired by and started from https://github.com/noahvanhart/mcp-server-clickup - rewritten for additional functionality and code clarity
